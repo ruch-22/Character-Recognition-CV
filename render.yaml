@@ -4,6 +4,10 @@ services:
     runtime: python
     plan: free
 
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.13
+
     buildCommand: pip install -r requirements.txt
 
     startCommand: streamlit run streamlit-app.py --server.port=$PORT --server.address=0.0.0.0
