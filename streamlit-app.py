@@ -23,7 +23,11 @@ st.set_page_config(
 
 @st.cache_resource
 def load_sign_model():
-    return load_model("model.keras", compile=False)
+    try:
+        return load_model("model.keras", compile=False)
+    except Exception as e:
+        st.error(f"Unable to load model: {e}")
+        st.stop()
 
 model = load_sign_model()
 
@@ -139,6 +143,13 @@ if uploaded_file is not None:
             predicted_index = np.argmax(prediction)
 
             predicted_letter = actions[predicted_index]
+            
+            if model.output_shape[-1] != len(actions):
+                st.error(
+                    f"Model expects {model.output_shape[-1]} classes, "
+                    f"but actions has {len(actions)}."
+                )
+                st.stop()
 
             confidence = prediction[predicted_index] * 100
 
@@ -165,7 +176,10 @@ if uploaded_file is not None:
             probability_df = pd.DataFrame({
                 "Class": actions,
                 "Probability": prediction
-            })
+            }).sort_values(
+                by="Probability",
+                ascending=False
+            )
 
             st.bar_chart(
                 probability_df.set_index("Class")
@@ -194,6 +208,16 @@ Please upload a clearer image where:
 - Lighting is sufficient
 """
             )
+            
+confidence = prediction[predicted_index]
+
+if confidence < 0.60:
+    st.warning(
+        "Low confidence prediction. "
+        "Please upload a clearer image."
+    )
+else:
+    predicted_letter = actions[predicted_index]
 
 # -------------------------------------------------
 # Footer
