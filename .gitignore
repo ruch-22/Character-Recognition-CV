@@ -1,8 +1,7 @@
 # Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
 
 # Virtual Environment
 .venv/
@@ -12,17 +11,45 @@ env/
 # VS Code
 .vscode/
 
+# PyCharm
+.idea/
+
+# Python cache
+.pytest_cache/
+.mypy_cache/
+
 # Jupyter
 .ipynb_checkpoints/
+
+# Build files
+build/
+dist/
+*.egg-info/
+
+# Logs
+Logs/
+*.log
+
+# TensorBoard
+events.out.tfevents.*
 
 # OS files
 .DS_Store
 Thumbs.db
 
-MP_Data/
+# Temporary files
+*.tmp
 
-logs/
-runs/
-events.out.tfevents*
+# Model checkpoints (keep your final model)
+checkpoint
+*.ckpt
 
-**/desktop.ini
+# Large datasets (optional)
+# Uncomment if you don't want to upload them
+# Data/
+# MP_Data/
+
+# Streamlit
+.streamlit/secrets.toml
+
+desktop.ini
