@@ -22,7 +22,7 @@ st.set_page_config(
 # -------------------------------------------------
 @st.cache_resource
 def load_sign_model():
-    return load_model("model.keras")
+    return load_model("model.keras", compile=False)
 
 model = load_sign_model()
 
