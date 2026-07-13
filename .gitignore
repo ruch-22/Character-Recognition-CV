@@ -53,3 +53,5 @@ checkpoint
 .streamlit/secrets.toml
 
 desktop.ini
+
+echo MP_Data/
